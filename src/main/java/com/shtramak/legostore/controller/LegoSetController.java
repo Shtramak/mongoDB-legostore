@@ -1,9 +1,7 @@
-package com.shtramak.legostore.model.controller;
+package com.shtramak.legostore.controller;
 
 import com.shtramak.legostore.model.LegoSet;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
+import com.shtramak.legostore.service.LegoSetService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,29 +16,29 @@ import java.util.List;
 @RestController
 @RequestMapping("api/legosets")
 public class LegoSetController {
-    private final MongoTemplate mongoTemplate;
+    private final LegoSetService service;
 
-    public LegoSetController(MongoTemplate mongoTemplate) {
-        this.mongoTemplate = mongoTemplate;
+    public LegoSetController(LegoSetService service) {
+        this.service = service;
     }
 
     @PostMapping
     public void insert(@RequestBody LegoSet legoSet) {
-        mongoTemplate.insert(legoSet);
+        service.insert(legoSet);
     }
 
     @GetMapping
     public List<LegoSet> findAll() {
-        return mongoTemplate.findAll(LegoSet.class);
+        return service.findAll();
     }
 
     @PutMapping
     public void update(@RequestBody LegoSet legoSet) {
-        mongoTemplate.save(legoSet);
+        service.update(legoSet);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable String id) {
-        mongoTemplate.remove(new Query(Criteria.where("id").is(id)), LegoSet.class);
+        service.delete(id);
     }
 }
