@@ -1,7 +1,7 @@
 package com.shtramak.legostore.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -14,7 +14,7 @@ import java.util.Collection;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Document(collection = "legosets")
 public class LegoSet {
     @Id
